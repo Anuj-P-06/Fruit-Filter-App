@@ -1,32 +1,39 @@
-import React, { useMemo, useState } from "react";
+import React from 'react'
+import { useMemo, useState } from "react";
 
-const Fruit = () => {
 
-    const [searchItem, setSearchItem] = useState("")
+const Filter = () => {
+    const [searchterm, setSearchTerm] = useState("")
 
-    const item = ["Apple", "Pineapple", "Mango", "Banana", "Pear"]
-    
-    const handleChange = (e) =>{
-        setSearchItem(e.target.value)
-    }
+    const item = ["Apple", "Mango", "Banana", "Pineapple", "Strawberry"]
 
-    const filteredFruit = useMemo(() =>{
-        return items.filter((item)=>
-        item.toLowerCase().include)
-    })
+    const handleChange = (e) =>
+        setSearchTerm(e.target.value)
 
+    const filteredfruit = useMemo(() => {
+        return item.filter((item) =>
+            item.toLowerCase().includes(searchterm.toLowerCase())
+            )
+        },[searchterm]  
+    )
 
     return (
         <div>
-            <h2>FRUIT FILTER</h2>
+            <h2>Fruit Filter App</h2>
             <input
-            type = "text"
-            placeholder = "type fruit"
-            onChange = {handleChange}
-            value = {searchItem}
-            ></input>
+                type="text"
+                placeholder="enter fruit"
+                onChange={handleChange}
+                value={searchterm}
+            >
+            </input>
+            <ul>
+                {filteredfruit.map((item,index) => (
+                    <li key={index}>{item}</li>
+                ))}
+            </ul>
         </div>
-    );
-};
+    )
+}
 
-export default Fruit;
+export default Filter
